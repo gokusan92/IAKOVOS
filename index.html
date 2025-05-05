@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAKOVOS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>/* No CSS code generated */</style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for visual enhancements */
+        .log-container {
+            height: 400px; /* Adjust as needed */
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap; /* Preserve line breaks */
+        }
+
+        .status-container {
+            height: 400px; /* Adjust as needed */
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap; /* Preserve line breaks */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center buttons horizontally */
+            gap: 2rem; /* Spacing between buttons */
+        }
+        .circle-button {
+            width: 80px; /* Adjust as needed */
+            height: 80px; /* Adjust as needed */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-black text-white flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="container mx-auto flex flex-col space-y-4">
+        <!-- Logs Section -->
+        <div class="border-2 border-green-500 p-4">
+            <h2 class="text-lg font-semibold mb-2">Logs</h2>
+            <div id="logs" class="log-container bg-gray-900 text-green-400 p-2 rounded">
+                <!-- Logs will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="button-container">
+            <div id="startButton" class="circle-button border-2 border-cyan-500 text-cyan-500 hover:bg-cyan-800">Start</div>
+            <div id="stopButton" class="circle-button border-2 border-red-500 text-red-500 hover:bg-red-800">Stop</div>
+        </div>
+
+        <!-- Status Section -->
+        <div class="border-2 border-cyan-500 p-4">
+            <h2 class="text-lg font-semibold mb-2">Status</h2>
+            <div id="status" class="status-container bg-gray-900 text-cyan-400 p-2 rounded">
+                <!-- Status messages will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const logsElement = document.getElementById('logs');
+        const statusElement = document.getElementById('status');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+
+        // Mock Data and Functions
+        let isRunning = false;
+
+        function appendLog(message) {
+            logsElement.textContent += message + '\n';
+            logsElement.scrollTop = logsElement.scrollHeight; // Auto-scroll
+        }
+
+        function appendStatus(message) {
+            statusElement.textContent += message + '\n';
+            statusElement.scrollTop = statusElement.scrollHeight; // Auto-scroll
+        }
+
+        function startProcess() {
+            if (isRunning) {
+                appendLog("Process is already running.");
+                appendStatus("Warning: Already running.");
+                return;
+            }
+
+            isRunning = true;
+            appendLog("Process started.");
+            appendStatus("Process started successfully.");
+
+            // Simulate some background activity
+            let counter = 0;
+            const intervalId = setInterval(() => {
+                if (!isRunning) {
+                    clearInterval(intervalId);
+                    return;
+                }
+                appendLog(`Processing... Step ${counter++}`);
+                appendStatus(`Active: Step ${counter}`);
+
+                if (counter > 10) { // Simulate completion after 10 steps
+                    stopProcess();
+                }
+
+            }, 1000); // Run every 1 second
+        }
+
+        function stopProcess() {
+            if (!isRunning) {
+                appendLog("Process is not running.");
+                appendStatus("Warning: Not running.");
+                return;
+            }
+
+            isRunning = false;
+            appendLog("Process stopped.");
+            appendStatus("Process stopped gracefully.");
+        }
+
+        // Event Listeners
+        startButton.addEventListener('click', startProcess);
+        stopButton.addEventListener('click', stopProcess);
+
+        // Initial Status
+        appendStatus("System initialized. Ready to start.");
+    </script>
+</body>
+</html>
+    <script>function stopProcess() {
+        if (!isRunning) {
+            appendLog("Process is not running.");
+            appendStatus("Warning: Not running.");
+            return;
+        }
+        // ... stop process logic ...
+    }</script>
+</body>
+</html>
